@@ -1,0 +1,206 @@
+.wrapper-start_screen {
+   background: url(./../../public/img/noise_transparent@2x.png) repeat, radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+}
+
+.header {
+   font-family: 'Arial Regular';
+   font-size: 15px;
+   line-height: 160%;
+
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+
+   overflow: hidden;
+   padding: 30px 0px;
+
+   @media (max-width: $breakpoint_burger) {
+      font-size: 32px;
+      line-height: 160%;
+      padding-left: 10px;
+      padding-right: 10px;
+      flex-wrap: wrap;
+      gap: 20px;
+   }
+}
+
+.header-light {
+   background-color: $color-light-xl;
+   color: $color-dark-3xl;
+   .header__menu .menu__list {
+      background-color: $color-light-xl;
+   }
+   & .header__burger {
+      border-color: #000000;
+      & span {
+         background-color: #000000;
+      }
+   }
+}
+
+.header-dark {
+   color: $color-dark-s;
+   @media (max-width: $breakpoint_burger) {
+      .header__menu .menu__list {
+         background-color: $color-dark-3xl;
+      }
+   }
+}
+
+// header-logo
+.header__logo {
+   display: flex;
+   flex-direction: column; 
+   align-items: center;
+   justify-content: center;
+   gap: 10px;
+   white-space: nowrap;
+   
+   .header__logo-title {
+      font-family: 'Georgia Regular';
+      font-size: 32px;
+      line-height: 110%;
+      letter-spacing: 0.06em;
+   }
+
+   .header__logo-subtitle {
+      font-family: 'Arial';
+      font-size: 13px;
+      line-height: 115%;
+      letter-spacing: 0.1em;
+   }
+}
+
+.header__logo-dark {
+   .header__logo-title {
+      color: $color-primary; 
+   }
+   .header__logo-subtitle {
+      color: $color-light-xl;
+   }
+}
+
+.header__logo-light {
+   .header__logo-title {
+      color: $color-dark-l;
+   }
+   .header__logo-subtitle {
+      color: $color-dark-3xl;
+   }
+}
+
+.menu__list {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   flex-wrap: wrap;
+   gap: 36px;
+}
+
+.menu__list-dark .menu__item  {
+   a {
+      transition: all 0.2s linear;
+   }
+   a:hover{
+      color: $color-light-s;
+      transition: all 0.2s linear;
+   }
+   &.accentuated {
+      color: $color-light-s;
+   }
+}
+
+.menu__list-light .menu__item  {
+   a {color: $color-dark-l;
+      transition: all 0.2s linear;
+   }
+   a:hover{
+      color: $color-dark-3xl;
+      transition: all 0.2s linear;
+   }
+}
+
+.menu__item {
+
+   &.accentuated {
+      border-bottom: solid $color-primary 3px;
+   }
+}
+
+.header__burger {
+   display: none;
+   position: relative;
+   z-index: 21;
+   transition: transform 0.5s linear;
+
+   @media (max-width: $breakpoint_burger) {
+      & {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 22px;
+      border-top: 2px solid $color-primary;
+      border-bottom: 2px solid $color-primary;
+      }
+
+      & span {
+      display: block;
+      background-color: $color-primary;
+      width: 100%;
+      height: 2px;
+      }
+
+      &.active {
+         transform: rotate(90deg);
+      }
+   }
+}
+
+// выдвижное меню
+.header__menu {
+   @media (max-width: $breakpoint_burger) {
+      & { // делаем темную область
+         z-index: 19;
+         position: absolute;
+         width: 0;
+         height: 0;
+         top: 0;
+         right: 0;
+         display: flex;
+         justify-content: end;
+         overflow: hidden;  
+         transition: width 0s 1s, height 0s 1s;
+      }
+      
+      &.active {
+         width: 100%;
+         height: 100%;
+         background: rgba(41, 41, 41, 0.6);
+         overflow: scroll; // если маленький по высоте экран, то меню будет скролится
+         transition: width 0s , height 0s ;
+      }
+      .menu__list {
+         position: absolute;
+         z-index: 20;
+         justify-content: flex-start;
+         padding-top: 248px;
+
+         flex-direction: column;
+         flex-wrap: nowrap;
+         gap: 40px;
+         right: -100%;
+         transition: right 0.5s;
+         min-height: 100%;
+         max-width: 320px;
+         width: 100%;
+         overflow: auto;
+         transition: right 1s cubic-bezier(0.19, 0.16, 0.39, 0.55);
+      }
+
+      .menu__list.active {
+         right: 0;
+         transition: right 1s cubic-bezier(0.19, 0.16, 0.39, 0.55);
+      }
+   } 
+}

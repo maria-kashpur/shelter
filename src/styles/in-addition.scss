@@ -1,0 +1,84 @@
+.in-addition {
+   background-color: $color-light-l;
+   padding-top: 80px;
+   padding-bottom: 100px;
+   @media (max-width: $breakpoint_mobile) {
+      padding-top: 42px;
+      padding-bottom: 42px;
+   }
+   
+}
+
+.in-addition__block {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   row-gap: 60px;
+   column-gap: 30px;
+   flex-wrap: wrap;
+   @media (max-width: $breakpoint_mobile) {
+      row-gap: 42px;
+   }
+}
+.in-addition__item_1 {
+   max-width: 505px;
+   img{
+      width: 100%;
+   }
+   @media (max-width: 994px) {
+      order: 2;
+   }
+   @media (max-width: $breakpoint_mobile) {
+      max-width: 260px;
+   }
+}
+
+.in-addition__item_2 {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   @media (max-width: $breakpoint_mobile) {
+      align-items: center;
+      h2 {
+         text-align: center;
+      }
+   }
+   gap: 20px;
+   max-width: 380px;
+   @media (max-width: 994px) {
+      order: 1;
+   }
+
+   p {
+      font-family: 'Arial Italic';
+      font-size: 12px;
+      line-height: 150%;
+      color: $color-dark-m;
+      @media (max-width: $breakpoint_mobile) {
+         text-align: justify;
+         padding: 0px 10px;
+      }
+   }
+}
+.credit_card {
+   background-color: $color-primary;
+   border-radius: 9px;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   gap: 15px;
+   padding: 10px 15px;
+}
+.credit_icon {
+   width: 30px;
+   height: 23px;
+}
+.credit_num {
+   font-family: 'Georgia Regular';
+   font-size: 20px;
+   line-height: 115%;
+   @media (max-width: $breakpoint_mobile) {
+      font-size: 15px;
+      line-height: 110%;
+   }
+}
