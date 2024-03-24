@@ -1,0 +1,171 @@
+body {
+   font-family: 'Georgia Regular', Georgia, 'Times New Roman', Times, serif;
+}
+
+._conteiner {
+   width: 100%;
+	max-width: 1280px;
+	/* недопускаем прилипание */
+	padding: 0px 40px;
+	margin: 0px auto;
+	box-sizing: border-box;
+   
+   @media (max-width: ($breakpoint_tablet)) {
+      padding: 0px 30px;
+   }
+   @media (max-width: ($breakpoint_burger)) {
+      padding: 0px 10px;
+   }
+}
+
+body.lock {
+   overflow: hidden;
+}
+
+.button {
+   border-radius: 100px;
+   color: $color-dark-3xl;
+   font-size: 17px;
+   line-height: 130%;
+   letter-spacing: 0.06em;
+   white-space: nowrap;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   padding: 15px 45px;
+   transition: all 0.5s ease;
+}
+
+.batton-orange {
+   background-color: $color-primary;
+   &:hover {
+      background-color: $color-primary-light;
+      transition: all 0.5s ease;
+   }
+}
+
+.batton-transparent {
+   border: $color-primary solid 2px;
+   background-color: transparent;
+   height: 52px;
+ 
+   
+   &:hover {
+      background-color: $color-primary-light;
+      border-color: $color-primary-light;
+      transition: all 0.5s ease;
+   }
+}
+
+.button-circle {
+   transition: all 0.5s ease;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: transparent;
+   span {
+      border: 2px solid $color-primary;
+      border-radius: 100px;
+      background-color: transparent;
+      width: 52px;
+      height: 52px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      line-height: 115%;
+   }
+
+   &:hover, &.active {
+      span {
+         background-color: $color-primary-light;
+         border-color: $color-primary-light;
+         transition: all 0.5s ease;
+      }
+   }
+
+   &.inactive {
+      cursor: auto;
+      span {
+         border-color: $color-dark-s;
+      }
+      svg {
+         path {
+            fill: $color-dark-s;
+         }
+      }
+      &:hover {
+         span {
+            background-color: transparent;
+            transition: all 0.5s ease;
+         }
+      }
+   }
+}
+
+h1 {
+   font-family: 'Georgia';
+   font-size: 44px;
+   line-height: 130%;
+   color: $color-light-xl;
+   align-self: flex-start;
+   @media (max-width: $breakpoint_mobile) {
+      font-size: 25px;
+      text-align: center;
+      align-self: center;
+      letter-spacing: 0.06em;
+   }
+}
+
+h2 {
+   font-family: Georgia, 'Georgia';
+   font-size: 35px;
+   line-height: 130%;
+   letter-spacing: 0.06em;
+   color: $color-dark-l;
+   @media (max-width: $breakpoint_mobile) {
+      font-size: 25px;
+   }
+}
+
+h3 {
+   font-family: 'Georgia';
+   font-size: 20px;
+   line-height: 115%;
+   letter-spacing: 0.06em;
+   color: $color-dark-l;
+}
+
+h4 { 
+   font-family: 'Georgia';
+   font-size: 20px;
+   line-height: 115%;
+   letter-spacing: 0.06em;
+   color: $color-dark-l;
+   text-align: center;
+   @media (max-width: $breakpoint_mobile) {
+      font-size: 15px;
+      line-height: 110%;
+   }
+}
+
+h5 {
+   font-family: 'Georgia';
+   font-size: 15px;
+   line-height: 110%;
+   letter-spacing: 0.06em;
+   color: $color-dark-l;
+   @media (max-width: $breakpoint_mobile) {
+      line-height: 160%;
+      letter-spacing: 0em;
+      text-align: center;
+   }
+}
+
+p {
+   font-family: Arial, 'Arial Regular';
+   font-size: 15px;
+   line-height: 160%;
+   color: $color-dark-xl;
+}

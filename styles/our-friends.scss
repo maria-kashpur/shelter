@@ -1,0 +1,221 @@
+.our-friends {
+   background-color: $color-light-l;
+   padding-top: 80px;
+   padding-bottom: 100px;
+
+   &.our_friends-own_page {
+      @media (max-width: $breakpoint_tablet) {
+         padding-top: 80px;
+         padding-bottom: 75px;
+      }
+      @media (max-width: $breakpoint_mobile) {
+         padding-top: 42px;
+         padding-bottom: 42px;   
+      }
+   }
+
+   @media (max-width: $breakpoint_mobile) {
+      padding-top: 42px;
+      padding-bottom: 42px;   
+   }
+}
+
+.our_friends__box {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+
+   &.our_friends-main_page {
+      row-gap: 60px;
+      @media (max-width: $breakpoint_tablet) {
+         row-gap: 58px;
+      }
+      @media (max-width: $breakpoint_mobile){
+         row-gap: 42px;
+      }
+   }
+
+   &.our_friends-own_page{
+      row-gap: 60px;
+      @media (max-width: $breakpoint_tablet) {
+         row-gap: 30px;
+      }
+      @media (max-width: $breakpoint_mobile){
+         row-gap: 42px;
+      }
+   }
+}
+
+.our_friends__title {
+   text-align: center;
+   margin: 0 auto;
+   &.our_friends-own_page {
+      font-family: 'Georgia';
+      font-size: 35px;
+      line-height: 130%;
+      letter-spacing: 0.06em;
+      color: $color-dark-l;
+      @media (max-width: $breakpoint_mobile) {
+         font-size: 25px;
+      }
+   }
+}
+
+.our-friend__card {
+   display: flex;
+   flex-direction: column;
+   gap: 30px;
+   align-items: center;
+   width: 270px;
+   height: 435px;
+   overflow: hidden;
+
+   border-radius: 9px;
+   background: $color-light-s;
+
+   cursor: pointer;
+   
+   
+   .photo {
+      img {
+         width: 100%;
+      }
+   }
+
+
+   &:hover {
+      background-color: $color-light-xl;
+      transition: all 0.5s ease;
+   }
+
+   &:hover .batton-transparent {
+      transition: all 0.5s ease;
+      background-color: $color-primary-light;
+      border-color: $color-primary-light;
+   }
+}
+
+// ============== slider ================
+.slider {
+   position: relative;
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   @media (max-width: 767px) {
+      gap: 20px;
+   }
+   padding: 0px 54px;
+   @media (max-width: 900px) {
+      padding: 0px;
+   }
+}
+
+.slider__controls {
+   display: flex;
+   justify-content: center;
+   gap: 80px;
+}
+
+.slider__prev {
+   position: absolute;
+   left: 0;
+   top: 192px;
+   @media (max-width: 767px) {
+      position: static;
+
+   }
+}
+.slider__next {
+   position: absolute;
+   right: 0;
+   top: 192px;
+   @media (max-width: 767px) {
+      position: static;
+
+   }
+}
+
+.slider__line {
+   overflow: hidden;
+   width: 100%;
+   max-height: 435px;
+}
+
+.slider__track {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   row-gap: 100px;
+   column-gap: 90px;
+   @media (max-width: $breakpoint_tablet) {
+      column-gap: 40px;
+   }
+}
+
+.slider__item.click {
+   --x: 0px;
+   --y: 0px;
+   animation: clickPrev 0.2s linear forwards ;
+}
+.slider__item.move {
+   transition: all 0.2s linear;
+   --x: 0px;
+   transform: translateX(var(--x));
+}
+
+@keyframes clickPrev {
+   1% {transform: translate(var(--x), var(--y));}
+   100% {transform: translate(0, var(--y));}
+}
+
+.slider__item {
+   flex-shrink: 0;
+}
+
+// pagination
+.pagination {
+   display: flex;
+   flex-direction: column;
+   gap: 60px;
+   @media (max-width: $breakpoint_tablet) {
+      gap: 40px;
+   }
+}
+.pagination__list {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   align-items: center;
+   gap: 30px 40px;
+   // @media (max-width: $breakpoint_tablet) {
+   //    max-height: 1365px;
+   //    overflow: hidden;
+   // }
+}
+
+.pagination_controls {
+   display: flex;
+   justify-content: center;
+   gap: 20px;
+   @media (max-width: $breakpoint_mobile) {
+      gap: 10px;
+   }
+}
+// .pagination__start {
+// }
+
+// .pagination__prev {
+// }
+.pagination__num.active span{
+   background-color: $color-primary;
+   border-color: $color-primary;
+}
+// .pagination__next {
+// }
+// .pagination__end {
+// }
+
+
+
+
