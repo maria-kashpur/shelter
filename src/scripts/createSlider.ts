@@ -1,34 +1,69 @@
+import getOurFriendsData from "./getOurFriendsData";
+import getRamdomNum from "./getRandomNum";
+
+class SliderView {
+  static get sliderTrack() {
+    const sliderTrack = document.querySelector(".slider__track");
+    if (!sliderTrack || !(sliderTrack instanceof HTMLElement))
+      throw new Error(".slider__track is not found");
+    return sliderTrack;
+  }
+
+  static get controls() {
+    const controls = document.querySelector(".slider__controls");
+    if (!controls || !(controls instanceof HTMLElement))
+      throw new Error(".slider__controls is not found");
+    return controls;
+  }
+
+  static get nextBtn() {
+    const btn = document.querySelector(".slider__next");
+    if (!btn || !(btn instanceof HTMLElement)) {
+      throw new Error(".slider__next is not found");
+    }
+    return btn;
+  }
+
+  static get prewBtn() {
+    const btn = document.querySelector(".slider__prev");
+    if (!btn || !(btn instanceof HTMLElement)) {
+      throw new Error(".slider__prev is not found");
+    }
+    return btn;
+  }
+}
+
 export default async function createSlider() {
   const sliderData = await getOurFriendsData();
-  const sliderTrack = document.querySelector(".slider__track");
-  const controls = document.querySelector(".slider__controls");
-  const sliderNext = document.querySelector(".slider__next");
-  const sliderPrev = document.querySelector(".slider__prev");
-  let cardsOrder = [];
+  const sliderTrack = SliderView.sliderTrack;
+  const controls = SliderView.controls;
+  const sliderNext = SliderView.nextBtn;
+  const sliderPrev = SliderView.prewBtn;
+  let cardsOrder: number[] = [];
 
   // формируем слайды на основе данных из json
-function createSliderTrack() {
-    sliderTrack.innerHTML = "";
-    for (let key in sliderData) {
-      sliderTrack.innerHTML += `<div class="slider__item">
-         <div class="our-friend__card">
-            <div class="photo"><img src="${sliderData[key].img}" alt="pet"></div>
-            <h3 class="title">${sliderData[key].name}</h3>
-            <button class="button batton-transparent">Learn more</button>
-         </div>
-      </div>`;
+  function createSliderTrack() { 
+      sliderTrack.innerHTML = "";
+      for (let key in sliderData) {
+        sliderTrack.innerHTML += `<div class="slider__item">
+          <div class="our-friend__card">
+              <div class="photo"><img src="${sliderData[key].img}" alt="pet"></div>
+              <h3 class="title">${sliderData[key].name}</h3>
+              <button class="button batton-transparent">Learn more</button>
+          </div>
+        </div>`;
+      }
     }
-  }
   createSliderTrack();
 
-  const sliderItems = document.querySelectorAll(".slider__item");
+  const sliderItems = document.querySelectorAll(".slider__item") as unknown as HTMLElement[];
 
   // присваиваем каждому слайду случайный order
   function createQueueCards() {
     const amountSliderItems = sliderItems.length;
 
     function getRandomOrder() {
-      let randomOrder = getRamdomNum(1, amountSliderItems + 1);
+      let randomOrder: number = getRamdomNum(1, amountSliderItems + 1);
       if (cardsOrder.includes(randomOrder)) {
         return getRandomOrder();
       } else {
@@ -37,14 +72,8 @@ function createSliderTrack() {
       }
     }
     sliderItems.forEach((el) => (el.style.order = `${getRandomOrder()}`));
-    console.log(cardsOrder);
   }
   createQueueCards();
-
-  // получаем случайное число в нужном диапазоне
-  function getRamdomNum(min, max) {
-    return Math.floor(min + Math.random() * (max - min));
-  }
 
   function getCurrentCarsOrder() {
     cardsOrder = [];
@@ -53,7 +82,7 @@ function createSliderTrack() {
   }
 
   function shakeCards() {
-    let newOrders = getCurrentCarsOrder().reduce((accum, el, index, arr) => {
+    let newOrders = getCurrentCarsOrder().reduce((accum: number[], el, _index, arr) => {
       if (
         el <= getQuantitySliderItem() * 2 &&
         el > arr.length - getQuantitySliderItem()
@@ -68,6 +97,7 @@ function createSliderTrack() {
       }
       return accum;
     }, []);
+
     sliderItems.forEach(
       (el, index) => (el.style.order = `${newOrders[index]}`)
     );
@@ -76,7 +106,7 @@ function createSliderTrack() {
 
   // высчитываем, сколько сейчас колонок в слайдере
   function getQuantitySliderItem() {
-    const sliderItems = document.querySelectorAll(".slider__item");
+    const sliderItems = document.querySelectorAll(".slider__item") as unknown as HTMLElement[];
     let numberOfVisibleSlides = 0;
     sliderItems.forEach((el) => {
       if (el.offsetTop === 0) numberOfVisibleSlides += 1;
@@ -110,7 +140,7 @@ function createSliderTrack() {
   countClickOfControls();
 
   sliderPrev.addEventListener("click", () => {
-    sliderItems.forEach((el, index, arr) => {
+    sliderItems.forEach((el, _i, arr) => {
       function createCarouselAnimation() {
         if (+el.style.order > arr.length - getQuantitySliderItem()) {
           el.classList.add("click");
@@ -143,7 +173,7 @@ function createSliderTrack() {
   });
 
   sliderNext.addEventListener("click", () => {
-    sliderItems.forEach((el, index, arr) => {
+    sliderItems.forEach((el, _i, arr) => {
       function createCarouselAnimation() {
         if (
           +el.style.order > getQuantitySliderItem() &&

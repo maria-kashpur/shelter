@@ -1,5 +1,51 @@
 
-import getOurFriendsData from "./getOurFriendsData";
+import createPopap from "./createPopap";
+import getOurFriendsData, { OurFriendsData } from "./getOurFriendsData";
+import shakeArr from "./shakeArr";
+
+class PagenationView {
+  static get startBtn() {
+    const btn = document.querySelector(".pagination__start");
+    if (!btn || !(btn instanceof HTMLButtonElement))
+      throw new Error(".pagination__start is not found");
+    return btn;
+  }
+
+  static get prevBtn() {
+    const btn = document.querySelector(".pagination__prev");
+    if (!btn || !(btn instanceof HTMLButtonElement))
+      throw new Error(".pagination__prev is not found");
+    return btn;
+  }
+
+  static get nextBtn() {
+    const btn = document.querySelector(".pagination__next");
+    if (!btn || !(btn instanceof HTMLButtonElement))
+      throw new Error(".pagination__next is not found");
+    return btn;
+  }
+
+  static get endBtn() {
+    const btn = document.querySelector(".pagination__end");
+    if (!btn || !(btn instanceof HTMLButtonElement))
+      throw new Error(".pagination__end is not found");
+    return btn;
+  }
+
+  static get list() {
+    const el = document.querySelector(".pagination__list");
+    if (!el || !(el instanceof HTMLElement))
+      throw new Error(".pagination__list is not found");
+    return el;
+  }
+
+  static get  status() {
+    const el = document.querySelector(".pagination__num span");
+    if (!el || !(el instanceof HTMLElement))
+      throw new Error(".pagination__num span is not found");
+    return el;
+  }
+}
 
 export default async function createPagination() {
   //получаем данные из json
@@ -7,23 +53,8 @@ export default async function createPagination() {
   const paginationData = propagateAndShakeCards(6);
 
   // перемешиваем и размножаем карточки
-  function propagateAndShakeCards(num) {
+  function propagateAndShakeCards(num: number) {
     const result = [];
-
-    function shakeArr(arr) {
-      return arr.reduce((accum, el) => {
-        let index = getRamdomNum(0, 8);
-        while (accum[index] !== undefined) {
-          index = getRamdomNum(0, 8);
-        }
-        accum[index] = el;
-        return accum;
-      }, []);
-    }
-    function getRamdomNum(min, max) {
-      return Math.floor(min + Math.random() * (max - min));
-    }
-
     while (num > 0) {
       let arr = shakeArr(data);
       result.push(...arr);
@@ -33,10 +64,10 @@ export default async function createPagination() {
   }
 
   // кнопки управления
-  const paginationStartBtn = document.querySelector(".pagination__start");
-  const paginationPrevBtn = document.querySelector(".pagination__prev");
-  const paginationNextBtn = document.querySelector(".pagination__next");
-  const paginationEndBtn = document.querySelector(".pagination__end");
+  const paginationStartBtn = PagenationView.startBtn;
+  const paginationPrevBtn = PagenationView.prevBtn;
+  const paginationNextBtn = PagenationView.nextBtn;
+  const paginationEndBtn = PagenationView.endBtn;
   // количество карточек на одной странице
   let amountItems = toCountItems();
   // текущая страница
@@ -55,10 +86,10 @@ export default async function createPagination() {
   }
 
   // отрисовка данных
-  function showList(paginationData, amountItems, currentPage) {
+  function showList(paginationData: OurFriendsData[], amountItems: number, currentPage: number) {
     currentPage--;
     // общий контейнер для карточек
-    const paginationList = document.querySelector(".pagination__list");
+    const paginationList = PagenationView.list;
 
     // обрезаем массив данных
     const start = amountItems * currentPage;
@@ -77,11 +108,11 @@ export default async function createPagination() {
     });
     createPopap();
   }
-  showList(paginationData, amountItems, currentPage);
+  showList(paginationData as OurFriendsData[], amountItems, currentPage);
 
   // показывает количество страниц
   function showStatus() {
-    const paginationStatus = document.querySelector(".pagination__num span");
+    const paginationStatus = PagenationView.status;
     paginationStatus.textContent = `${currentPage}`;
   }
   showStatus();
@@ -115,7 +146,7 @@ export default async function createPagination() {
   //start
   paginationStartBtn.addEventListener("click", () => {
     currentPage = 1;
-    showList(paginationData, amountItems, currentPage);
+    showList(paginationData as OurFriendsData[], amountItems, currentPage);
     checkActiveBtn();
     return currentPage;
   });
@@ -123,7 +154,7 @@ export default async function createPagination() {
   // end
   paginationEndBtn.addEventListener("click", () => {
     currentPage = lastPage;
-    showList(paginationData, amountItems, currentPage);
+    showList(paginationData as OurFriendsData[], amountItems, currentPage);
     checkActiveBtn();
     return currentPage;
   });
@@ -132,7 +163,7 @@ export default async function createPagination() {
   paginationPrevBtn.addEventListener("click", () => {
     if (currentPage > 1) {
       currentPage--;
-      showList(paginationData, amountItems, currentPage);
+      showList(paginationData as OurFriendsData[], amountItems, currentPage);
       checkActiveBtn();
       return currentPage;
     }
@@ -142,19 +173,19 @@ export default async function createPagination() {
   paginationNextBtn.addEventListener("click", () => {
     if (currentPage < lastPage) {
       currentPage++;
-      showList(paginationData, amountItems, currentPage);
+      showList(paginationData as OurFriendsData[], amountItems, currentPage);
       checkActiveBtn();
       return currentPage;
     }
   });
 
-  // следим за размером окна браузера, чтобы при изменении количества карточер на странице пагинация пересчитывалась
-  window.addEventListener("resize", (e) => {
+  // следим за размером окна браузера, чтобы при изменении количества карточки на странице пагинация пересчитывалась
+  window.addEventListener("resize", () => {
     if (amountItems !== toCountItems()) {
       amountItems = toCountItems();
       currentPage = 1;
       lastPage = Math.ceil(paginationData.length / amountItems);
-      showList(paginationData, amountItems, currentPage);
+      showList(paginationData as OurFriendsData[], amountItems, currentPage);
       checkActiveBtn();
     }
   });
